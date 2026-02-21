@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-persona-cliente.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/002-seed-data.yaml
+      relativeToChangelogFile: false

@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-personas
+      author: banking-team
+      comment: Insert initial persona records (Caso de Uso 1)
+      changes:
+        - insert:
+            tableName: persona
+            columns:
+              - column: {name: nombre,         value: Jose Lema}
+              - column: {name: genero,         value: Masculino}
+              - column: {name: edad,           valueNumeric: 30}
+              - column: {name: identificacion, value: '1712345678'}
+              - column: {name: direccion,      value: 'Otavalo sn y principal'}
+              - column: {name: telefono,       value: '098254785'}
+              - column: {name: dtype,          value: Cliente}
+        - insert:
+            tableName: persona
+            columns:
+              - column: {name: nombre,         value: Marianela Montalvo}
+              - column: {name: genero,         value: Femenino}
+              - column: {name: edad,           valueNumeric: 28}
+              - column: {name: identificacion, value: '1723456789'}
+              - column: {name: direccion,      value: 'Amazonas y NNUU'}
+              - column: {name: telefono,       value: '097548965'}
+              - column: {name: dtype,          value: Cliente}
+        - insert:
+            tableName: persona
+            columns:
+              - column: {name: nombre,         value: Juan Osorio}
+              - column: {name: genero,         value: Masculino}
+              - column: {name: edad,           valueNumeric: 35}
+              - column: {name: identificacion, value: '1734567890'}
+              - column: {name: direccion,      value: '13 junio y Equinoccial'}
+              - column: {name: telefono,       value: '098874587'}
+              - column: {name: dtype,          value: Cliente}
+
+  - changeSet:
+      id: 002-seed-clientes
+      author: banking-team
+      comment: Insert initial cliente records
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO cliente (id, cliente_id, contrasena, estado)
+              SELECT id, CONCAT('CLI-', identificacion), '1234', TRUE
+              FROM persona WHERE identificacion = '1712345678';
+
+              INSERT INTO cliente (id, cliente_id, contrasena, estado)
+              SELECT id, CONCAT('CLI-', identificacion), '5678', TRUE
+              FROM persona WHERE identificacion = '1723456789';
+
+              INSERT INTO cliente (id, cliente_id, contrasena, estado)
+              SELECT id, CONCAT('CLI-', identificacion), '1245', TRUE
+              FROM persona WHERE identificacion = '1734567890';

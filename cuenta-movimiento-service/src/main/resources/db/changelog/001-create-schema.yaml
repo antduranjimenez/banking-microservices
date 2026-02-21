@@ -1,0 +1,155 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-cliente-cache
+      author: banking-team
+      comment: Local cache of clients synchronized via RabbitMQ events
+      changes:
+        - createTable:
+            tableName: cliente_cache
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: cliente_id
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: nombre
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: identificacion
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: estado
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 001-create-cuenta
+      author: banking-team
+      comment: Create cuenta table
+      changes:
+        - createTable:
+            tableName: cuenta
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: numero_cuenta
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: tipo_cuenta
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: saldo_inicial
+                  type: DECIMAL(15,2)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: saldo_disponible
+                  type: DECIMAL(15,2)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: estado
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cliente_id
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cuenta_cliente_cache
+                    references: cliente_cache(cliente_id)
+
+  - changeSet:
+      id: 001-create-movimiento
+      author: banking-team
+      comment: Create movimiento table
+      changes:
+        - createTable:
+            tableName: movimiento
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fecha
+                  type: TIMESTAMP
+                  defaultValueComputed: NOW()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tipo_movimiento
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valor
+                  type: DECIMAL(15,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: saldo
+                  type: DECIMAL(15,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cuenta_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_movimiento_cuenta
+                    references: cuenta(id)
+
+  - changeSet:
+      id: 001-create-indexes
+      author: banking-team
+      changes:
+        - createIndex:
+            indexName: idx_movimiento_fecha
+            tableName: movimiento
+            columns:
+              - column: { name: fecha }
+        - createIndex:
+            indexName: idx_movimiento_cuenta_id
+            tableName: movimiento
+            columns:
+              - column: { name: cuenta_id }
+        - createIndex:
+            indexName: idx_cuenta_cliente_id
+            tableName: cuenta
+            columns:
+              - column: { name: cliente_id }

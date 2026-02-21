@@ -1,0 +1,105 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-cliente-cache
+      author: banking-team
+      comment: Seed client cache from use case data
+      changes:
+        - insert:
+            tableName: cliente_cache
+            columns:
+              - column: { name: cliente_id,     value: 'CLI-1712345678' }
+              - column: { name: nombre,         value: Jose Lema }
+              - column: { name: identificacion, value: '1712345678' }
+              - column: { name: estado,         valueBoolean: true }
+        - insert:
+            tableName: cliente_cache
+            columns:
+              - column: { name: cliente_id,     value: 'CLI-1723456789' }
+              - column: { name: nombre,         value: Marianela Montalvo }
+              - column: { name: identificacion, value: '1723456789' }
+              - column: { name: estado,         valueBoolean: true }
+        - insert:
+            tableName: cliente_cache
+            columns:
+              - column: { name: cliente_id,     value: 'CLI-1734567890' }
+              - column: { name: nombre,         value: Juan Osorio }
+              - column: { name: identificacion, value: '1734567890' }
+              - column: { name: estado,         valueBoolean: true }
+
+  - changeSet:
+      id: 002-seed-cuentas
+      author: banking-team
+      comment: Seed accounts (Caso de Uso 2 y 3)
+      changes:
+        - insert:
+            tableName: cuenta
+            columns:
+              - column: { name: numero_cuenta,    value: '478758' }
+              - column: { name: tipo_cuenta,      value: Ahorros }
+              - column: { name: saldo_inicial,    valueNumeric: 2000.00 }
+              - column: { name: saldo_disponible, valueNumeric: 2000.00 }
+              - column: { name: estado,           valueBoolean: true }
+              - column: { name: cliente_id,       value: 'CLI-1712345678' }
+        - insert:
+            tableName: cuenta
+            columns:
+              - column: { name: numero_cuenta,    value: '225487' }
+              - column: { name: tipo_cuenta,      value: Corriente }
+              - column: { name: saldo_inicial,    valueNumeric: 100.00 }
+              - column: { name: saldo_disponible, valueNumeric: 100.00 }
+              - column: { name: estado,           valueBoolean: true }
+              - column: { name: cliente_id,       value: 'CLI-1723456789' }
+        - insert:
+            tableName: cuenta
+            columns:
+              - column: { name: numero_cuenta,    value: '495878' }
+              - column: { name: tipo_cuenta,      value: Ahorros }
+              - column: { name: saldo_inicial,    valueNumeric: 0.00 }
+              - column: { name: saldo_disponible, valueNumeric: 0.00 }
+              - column: { name: estado,           valueBoolean: true }
+              - column: { name: cliente_id,       value: 'CLI-1734567890' }
+        - insert:
+            tableName: cuenta
+            columns:
+              - column: { name: numero_cuenta,    value: '496825' }
+              - column: { name: tipo_cuenta,      value: Ahorros }
+              - column: { name: saldo_inicial,    valueNumeric: 540.00 }
+              - column: { name: saldo_disponible, valueNumeric: 540.00 }
+              - column: { name: estado,           valueBoolean: true }
+              - column: { name: cliente_id,       value: 'CLI-1723456789' }
+        - insert:
+            tableName: cuenta
+            columns:
+              - column: { name: numero_cuenta,    value: '585545' }
+              - column: { name: tipo_cuenta,      value: Corriente }
+              - column: { name: saldo_inicial,    valueNumeric: 1000.00 }
+              - column: { name: saldo_disponible, valueNumeric: 1000.00 }
+              - column: { name: estado,           valueBoolean: true }
+              - column: { name: cliente_id,       value: 'CLI-1712345678' }
+
+  - changeSet:
+      id: 002-seed-movimientos
+      author: banking-team
+      comment: Seed movements (Caso de Uso 4)
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO movimiento (fecha, tipo_movimiento, valor, saldo, cuenta_id)
+              SELECT '2022-02-05 10:00:00', 'Retiro', -575.00, 1425.00, id
+              FROM cuenta WHERE numero_cuenta = '478758';
+              UPDATE cuenta SET saldo_disponible = 1425.00 WHERE numero_cuenta = '478758';
+
+              INSERT INTO movimiento (fecha, tipo_movimiento, valor, saldo, cuenta_id)
+              SELECT '2022-02-10 11:00:00', 'Deposito', 600.00, 700.00, id
+              FROM cuenta WHERE numero_cuenta = '225487';
+              UPDATE cuenta SET saldo_disponible = 700.00 WHERE numero_cuenta = '225487';
+
+              INSERT INTO movimiento (fecha, tipo_movimiento, valor, saldo, cuenta_id)
+              SELECT '2022-02-12 09:00:00', 'Deposito', 150.00, 150.00, id
+              FROM cuenta WHERE numero_cuenta = '495878';
+              UPDATE cuenta SET saldo_disponible = 150.00 WHERE numero_cuenta = '495878';
+
+              INSERT INTO movimiento (fecha, tipo_movimiento, valor, saldo, cuenta_id)
+              SELECT '2022-02-08 14:00:00', 'Retiro', -540.00, 0.00, id
+              FROM cuenta WHERE numero_cuenta = '496825';
+              UPDATE cuenta SET saldo_disponible = 0.00 WHERE numero_cuenta = '496825';
