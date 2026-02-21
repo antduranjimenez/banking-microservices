@@ -1,0 +1,17 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# Docker volumes
+postgres_cliente_data/
+postgres_cuenta_data/
+rabbitmq_data/
