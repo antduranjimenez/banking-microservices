@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "Banking Microservices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "cliente_host", "value": "http://localhost:8080/api" },
+    { "key": "cuenta_host",  "value": "http://localhost:8081/api" }
+  ],
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "POST - Crear Cliente (Jose Lema)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cliente_host}}/clientes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Jose Lema\",\n  \"genero\": \"Masculino\",\n  \"edad\": 30,\n  \"identificacion\": \"1712345678\",\n  \"direccion\": \"Otavalo sn y principal\",\n  \"telefono\": \"098254785\",\n  \"contrasena\": \"1234\",\n  \"estado\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Cliente (Marianela Montalvo)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cliente_host}}/clientes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Marianela Montalvo\",\n  \"genero\": \"Femenino\",\n  \"edad\": 28,\n  \"identificacion\": \"1723456789\",\n  \"direccion\": \"Amazonas y NNUU\",\n  \"telefono\": \"097548965\",\n  \"contrasena\": \"5678\",\n  \"estado\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Cliente (Juan Osorio)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cliente_host}}/clientes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Osorio\",\n  \"genero\": \"Masculino\",\n  \"edad\": 35,\n  \"identificacion\": \"1734567890\",\n  \"direccion\": \"13 junio y Equinoccial\",\n  \"telefono\": \"098874587\",\n  \"contrasena\": \"1245\",\n  \"estado\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Listar Clientes",
+          "request": {
+            "method": "GET",
+            "url": "{{cliente_host}}/clientes"
+          }
+        },
+        {
+          "name": "GET - Obtener Cliente por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{cliente_host}}/clientes/1"
+          }
+        },
+        {
+          "name": "PUT - Actualizar Cliente",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cliente_host}}/clientes/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Jose Lema Updated\",\n  \"genero\": \"Masculino\",\n  \"edad\": 31,\n  \"identificacion\": \"1712345678\",\n  \"direccion\": \"Nueva Direccion\",\n  \"telefono\": \"099999999\",\n  \"contrasena\": \"newpass\",\n  \"estado\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "PATCH - Actualizar Parcial Cliente",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cliente_host}}/clientes/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "{{cliente_host}}/clientes/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cuentas",
+      "item": [
+        {
+          "name": "POST - Crear Cuenta Ahorros (Jose Lema - 478758)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/cuentas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"tipoCuenta\": \"Ahorros\",\n  \"saldoInicial\": 2000.00,\n  \"estado\": true,\n  \"clienteId\": \"CLI-1712345678\"\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Cuenta Corriente (Marianela - 225487)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/cuentas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"225487\",\n  \"tipoCuenta\": \"Corriente\",\n  \"saldoInicial\": 100.00,\n  \"estado\": true,\n  \"clienteId\": \"CLI-1723456789\"\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Cuenta Ahorros (Juan Osorio - 495878)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/cuentas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"495878\",\n  \"tipoCuenta\": \"Ahorros\",\n  \"saldoInicial\": 0.00,\n  \"estado\": true,\n  \"clienteId\": \"CLI-1734567890\"\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Cuenta Ahorros (Marianela - 496825)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/cuentas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"496825\",\n  \"tipoCuenta\": \"Ahorros\",\n  \"saldoInicial\": 540.00,\n  \"estado\": true,\n  \"clienteId\": \"CLI-1723456789\"\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Cuenta Corriente Jose Lema (585545)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/cuentas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"585545\",\n  \"tipoCuenta\": \"Corriente\",\n  \"saldoInicial\": 1000.00,\n  \"estado\": true,\n  \"clienteId\": \"CLI-1712345678\"\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Listar Cuentas",
+          "request": {
+            "method": "GET",
+            "url": "{{cuenta_host}}/cuentas"
+          }
+        },
+        {
+          "name": "GET - Cuentas por Cliente",
+          "request": {
+            "method": "GET",
+            "url": "{{cuenta_host}}/cuentas/cliente/CLI-1712345678"
+          }
+        },
+        {
+          "name": "PATCH - Actualizar Estado Cuenta",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/cuentas/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Cuenta",
+          "request": {
+            "method": "DELETE",
+            "url": "{{cuenta_host}}/cuentas/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "POST - Retiro 575 (cuenta 478758 - Jose Lema)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/movimientos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": 1,\n  \"tipoMovimiento\": \"Retiro\",\n  \"valor\": -575.00\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Deposito 600 (cuenta 225487 - Marianela)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/movimientos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": 2,\n  \"tipoMovimiento\": \"Deposito\",\n  \"valor\": 600.00\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Deposito 150 (cuenta 495878 - Juan Osorio)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/movimientos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": 3,\n  \"tipoMovimiento\": \"Deposito\",\n  \"valor\": 150.00\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Retiro 540 (cuenta 496825 - Marianela - debe vaciar saldo)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/movimientos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": 4,\n  \"tipoMovimiento\": \"Retiro\",\n  \"valor\": -540.00\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - F3: Retiro sin saldo (debe retornar 'Saldo no disponible')",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{cuenta_host}}/movimientos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": 4,\n  \"tipoMovimiento\": \"Retiro\",\n  \"valor\": -100.00\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Listar Movimientos",
+          "request": {
+            "method": "GET",
+            "url": "{{cuenta_host}}/movimientos"
+          }
+        },
+        {
+          "name": "GET - Movimientos por Cuenta",
+          "request": {
+            "method": "GET",
+            "url": "{{cuenta_host}}/movimientos/cuenta/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reportes",
+      "item": [
+        {
+          "name": "GET - F4: Estado de Cuenta Marianela (rango fechas)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_host}}/reportes?fecha=2022-01-01,2022-12-31&cliente=CLI-1723456789",
+              "host": ["{{cuenta_host}}"],
+              "path": ["reportes"],
+              "query": [
+                { "key": "fecha", "value": "2022-01-01,2022-12-31" },
+                { "key": "cliente", "value": "CLI-1723456789" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - F4: Estado de Cuenta Jose Lema",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_host}}/reportes?fecha=2022-01-01,2022-12-31&cliente=CLI-1712345678",
+              "host": ["{{cuenta_host}}"],
+              "path": ["reportes"],
+              "query": [
+                { "key": "fecha", "value": "2022-01-01,2022-12-31" },
+                { "key": "cliente", "value": "CLI-1712345678" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
